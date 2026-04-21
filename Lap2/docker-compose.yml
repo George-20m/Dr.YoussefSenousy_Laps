@@ -1,0 +1,81 @@
+version: "3.8"
+
+services:
+
+  # ─── Redis Master ───────────────────────────────────────────
+  redis-node1:
+    image: redis:7
+    container_name: redis-node1
+    ports:
+      - "6379:6379"
+    networks:
+      - lab-network
+
+  # ─── Redis Replica ──────────────────────────────────────────
+  redis-node2:
+    image: redis:7
+    container_name: redis-node2
+    command: redis-server --replicaof redis-node1 6379
+    ports:
+      - "6380:6379"
+    depends_on:
+      - redis-node1
+    networks:
+      - lab-network
+
+  # ─── etcd node 1 (initial cluster leader candidate) ─────────
+  etcd1:
+    image: gcr.io/etcd-development/etcd:v3.5.5
+    container_name: etcd1
+    environment:
+      - ETCD_NAME=etcd1
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd1:2380
+      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd1:2379
+      - ETCD_INITIAL_CLUSTER=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
+      - ETCD_INITIAL_CLUSTER_STATE=new
+      - ETCD_INITIAL_CLUSTER_TOKEN=lab02-cluster
+    ports:
+      - "23790:2379"
+    networks:
+      - lab-network
+
+  # ─── etcd node 2 ────────────────────────────────────────────
+  etcd2:
+    image: gcr.io/etcd-development/etcd:v3.5.5
+    container_name: etcd2
+    environment:
+      - ETCD_NAME=etcd2
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd2:2380
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd2:2379
+      - ETCD_INITIAL_CLUSTER=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
+      - ETCD_INITIAL_CLUSTER_STATE=new
+      - ETCD_INITIAL_CLUSTER_TOKEN=lab02-cluster
+    ports:
+      - "23810:2379"
+    networks:
+      - lab-network
+
+  # ─── etcd node 3 ────────────────────────────────────────────
+  etcd3:
+    image: gcr.io/etcd-development/etcd:v3.5.5
+    container_name: etcd3
+    environment:
+      - ETCD_NAME=etcd3
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd3:2380
+      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd3:2379
+      - ETCD_INITIAL_CLUSTER=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
+      - ETCD_INITIAL_CLUSTER_STATE=new
+      - ETCD_INITIAL_CLUSTER_TOKEN=lab02-cluster
+    ports:
+      - "23820:2379"
+    networks:
+      - lab-network
+
+networks:
+  lab-network:
+    driver: bridge
