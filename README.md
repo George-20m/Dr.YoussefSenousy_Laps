@@ -1,7 +1,3 @@
-# Senousy Assignment
-
-This repository contains the coursework for four cloud computing labs. The labs progress from virtualization and distributed systems foundations to container orchestration and microservices, with each folder containing the implementation files, screenshots, and a written report.
-
 ## Lap 1 Overview
 
 Lap 1 explores cloud virtualization and data center architecture by comparing virtual machines and containers, examining AWS infrastructure concepts, and observing tail latency behavior in a simple distributed web application.
