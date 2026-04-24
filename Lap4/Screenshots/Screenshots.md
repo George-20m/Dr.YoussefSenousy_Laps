@@ -44,7 +44,7 @@ Failure injection step after stopping `product-service`, showing degraded behavi
 
 ![06-product-service-stopped](./06-product-service-stopped.png)
 
-Figure: `07-product-service-stopped.png`
+Figure: `06-product-service-stopped.png`
 
 ---
 
@@ -53,4 +53,4 @@ Final `docker compose ps` output after restarting `product-service`, showing the
 
 ![07-services-restored](./07-services-restored.png)
 
-Figure: `09-services-restored.png`
+Figure: `07-services-restored.png`
