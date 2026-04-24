@@ -40,32 +40,17 @@ Figure: `05-order-post-bad-request.png`
 
 ---
 
-Successful `POST /orders` request showing the order was created for `Laptop` with quantity `2` and total price `2400`.
-
-![06-order-created-successfully](./06-order-created-successfully.png)
-
-Figure: `06-order-created-successfully.png`
-
----
-
 Failure injection step after stopping `product-service`, showing degraded behavior when `order-service` can no longer reach its dependency.
 
-![07-product-service-stopped](./07-product-service-stopped.png)
+![06-product-service-stopped](./06-product-service-stopped.png)
 
 Figure: `07-product-service-stopped.png`
 
 ---
 
-Order request during the simulated failure returning `product-service unavailable`.
-
-![08-order-failure-product-service-unavailable](./08-order-failure-product-service-unavailable.png)
-
-Figure: `08-order-failure-product-service-unavailable.png`
-
----
 
 Final `docker compose ps` output after restarting `product-service`, showing the services restored.
 
-![09-services-restored](./09-services-restored.png)
+![07-services-restored](./07-services-restored.png)
 
 Figure: `09-services-restored.png`
