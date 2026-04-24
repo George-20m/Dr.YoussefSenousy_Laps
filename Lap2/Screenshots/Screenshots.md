@@ -1,15 +1,87 @@
 # Screenshots
 
-| Screenshot | Description |
-|---|---|
-| [screenshot_01_containers_running.png](./01_containers_running.png) | All 5 containers running: redis-node1, redis-node2, etcd1, etcd2, etcd3 |
-| [screenshot_02_redis_set_master.png](./02_redis_set_master.png) | Writing `SET mykey "hello-from-node1"` on redis-node1 (master) — returns OK |
-| [screenshot_03_redis_get_replica.png](./03_redis_get_replica.png) | Reading `GET mykey` on redis-node2 (replica) — returns the value written on master, proving replication works |
-| [screenshot_04_redis_replication_info.png](./04_redis_replication_info.png) | `INFO replication` on both nodes — master shows `role:master` with `connected_slaves:1`, replica shows `role:slave` with `master_link_status:up` |
-| [screenshot_05_redis_write_during_partition.png](./05_redis_write_during_partition.png) | Writes on redis-node1 while redis-node2 is stopped — both keys return OK, showing master stays available during partition |
-| [screenshot_06_redis_eventual_consistency.png](./06_redis_eventual_consistency.png) | Redis-node2 reading `key_during_partition` after restart — returns the value written during partition, proving eventual consistency |
-| [screenshot_07_etcd_put.png](./07_etcd_put.png) | `etcdctl put foo bar` on etcd1 — returns OK |
-| [screenshot_08_etcd_get.png](./08_etcd_get.png) | `etcdctl get foo` on etcd1 — returns `foo` with value `bar` |
-| [screenshot_09_etcd_leader_before.png](./09_etcd_leader_before.png) | `endpoint status --write-out=table` showing the current leader node and its Raft term/index |
-| [screenshot_10_etcd_leader_after_failover.png](./10_etcd_leader_after_failover.png) | After killing the leader — new leader elected with a higher Raft term number |
-| [screenshot_11_etcd_data_after_failover.png](./11_etcd_data_after_failover.png) | `etcdctl get foo` after failover — data intact, proving Raft guarantees committed entries are never lost |
+All 5 containers running: `redis-node1`, `redis-node2`, `etcd1`, `etcd2`, and `etcd3`.
+
+![01_containers_running](./01_containers_running.png)
+
+Figure: `01_containers_running.png`
+
+---
+
+Writing `SET mykey "hello-from-node1"` on `redis-node1` as the master and receiving `OK`.
+
+![02_redis_set_master](./02_redis_set_master.png)
+
+Figure: `02_redis_set_master.png`
+
+---
+
+Reading `GET mykey` on `redis-node2` and receiving the replicated value from the master.
+
+![03_redis_get_replica](./03_redis_get_replica.png)
+
+Figure: `03_redis_get_replica.png`
+
+---
+
+`INFO replication` on both Redis nodes showing `role:master`, `connected_slaves:1`, `role:slave`, and `master_link_status:up`.
+
+![04_redis_replication_info](./04_redis_replication_info.png)
+
+Figure: `04_redis_replication_info.png`
+
+---
+
+Writes on `redis-node1` while `redis-node2` is stopped, showing the master remains available during the partition.
+
+![05_redis_write_during_partition](./05_redis_write_during_partition.png)
+
+Figure: `05_redis_write_during_partition.png`
+
+---
+
+`redis-node2` reading `key_during_partition` after restart, proving eventual consistency after replication catches up.
+
+![06_redis_eventual_consistency](./06_redis_eventual_consistency.png)
+
+Figure: `06_redis_eventual_consistency.png`
+
+---
+
+`etcdctl put foo bar` on `etcd1` returning `OK`.
+
+![07_etcd_put](./07_etcd_put.png)
+
+Figure: `07_etcd_put.png`
+
+---
+
+`etcdctl get foo` on `etcd1` returning `foo` with value `bar`.
+
+![08_etcd_get](./08_etcd_get.png)
+
+Figure: `08_etcd_get.png`
+
+---
+
+`endpoint status --write-out=table` showing the current etcd leader node and its Raft term and index.
+
+![09_etcd_leader_before](./09_etcd_leader_before.png)
+
+Figure: `09_etcd_leader_before.png`
+
+---
+
+After killing the leader, a new leader is elected with a higher Raft term number.
+
+![10_etcd_leader_after_failover](./10_etcd_leader_after_failover.png)
+
+Figure: `10_etcd_leader_after_failover.png`
+
+---
+
+`etcdctl get foo` after failover showing the data is still present.
+
+![11_etcd_data_after_failover](./11_etcd_data_after_failover.png)
+
+Figure: `11_etcd_data_after_failover.png`
