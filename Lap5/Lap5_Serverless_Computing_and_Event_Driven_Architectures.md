@@ -23,22 +23,9 @@ This lab implements a local serverless-style event-driven image processing pipel
 
 ---
 
-## Screenshot File Names
-
-Save your screenshots inside the `Screenshots/` folder using these names:
-
-| Screenshot | File Name |
-|-----------|-----------|
-| Running containers (`docker compose ps`) | `01-running-containers.png` |
-| Event source logs | `02-event-source-logs.png` |
-| Event router logs | `03-event-router-logs.png` |
-| Input / Output folder image proof | `04-output-image.png` |
-
----
-
 ## Screenshots
 
-See `Screenshots/Screenshots.md` for screenshot descriptions.
+See [Screenshots.md](./Screenshots/Screenshots.md) for screenshot descriptions.
 
 ---
 
