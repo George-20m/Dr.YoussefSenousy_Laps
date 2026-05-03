@@ -25,3 +25,10 @@ Lap 4 focuses on microservices and cloud-native design using a small e-commerce 
 
 - [Lap 4 Report](./Lap4/Lap4_Microservices_and_Cloud_Native_Design.md)
 - [Lap 4 Screenshots](./Lap4/Screenshots/Screenshots.md)
+
+## Lap 5 Overview
+
+Lap 5 focuses on serverless computing and event-driven architectures through a fully local implementation. It simulates a Function-as-a-Service (FaaS) environment using Docker, Redis Streams, and Flask-based micro-functions. The lab demonstrates event sourcing, event routing, asynchronous processing, fan-out patterns, and a reactive image processing pipeline. It also includes a cold-start experiment to observe performance differences between initial and warm executions.
+
+- [Lap 5 Report](./Lap5/Lap5_Serverless_Computing_and_Event_Driven_Architectures.md)
+- [Lap 5 Screenshots](./Lap5/Screenshots/Screenshots.md)
