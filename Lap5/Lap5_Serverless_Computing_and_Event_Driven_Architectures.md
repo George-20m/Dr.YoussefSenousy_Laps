@@ -91,7 +91,7 @@ These functions receive the event and perform processing.
 
 **Q4: Why is this pipeline loosely coupled?**
 
-Each service is independent and communicates through events rather than direct hardcoded dependencies. This allows services to be modified, replaced, or scaled separately.
+Each service is independent and communicates through events rather than direct hardcoded dependencies. This allows services to be modified, replaced, or scaled separately without affecting the rest of the pipeline.
 
 ---
 
